@@ -46,3 +46,21 @@ canvas{
 autoSetCanvasSize(yyy);
 listenToMouse(yyy);
 ```
+
+### 5.手机适配
+
+#### 1.手机屏幕控制
+```html
+<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0">
+```
+不允许用户缩放屏幕，初始化、最大、最小的屏幕大小都是1，width=device-width 设置屏幕尺寸和设备相同
+
+#### 2.事件选择设备
+
+直接查看是否可以用touch事件，undefined不支持，null支持
+```javascript
+console.log(document.body.ontouchstart !== undefined);
+```
+暂时没用，一下午时间，心态炸裂，在chrome和firefox都没有找到ontouchstart。如果手机适配就暂时用着，到之后再改改看。
+
+用onpointerdown浏览器里手机和pc的都可以用，在手机里会出现短短一笔的问题，之后再改。
