@@ -1,0 +1,17 @@
+#xxx{
+    background: gray;
+    display: block;
+}
+
+body{
+}
+
+html{
+    border:1px solid black;
+}
+button{
+    border-radius: 2px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
