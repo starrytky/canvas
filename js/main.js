@@ -33,13 +33,13 @@ function autoSetCanvasSize(canvas) {
 }
 
 function listenToMouse(canvas) {
-    console.dir(11);
     let using = false;
     let lastPoint = {x: undefined, y: undefined};
 
     //特性检测：查看函数是否存在
-    if (document.body.onpointerdown === undefined) {
+    if (document.body.onpointerdown === null) {
         canvas.onpointerdown = function (aaa) {
+            console.log(1);
             console.log(aaa);
             let x = aaa.clientX;//相对于视口的位置不是相对于canvas的位置
             let y = aaa.clientY;
@@ -54,6 +54,7 @@ function listenToMouse(canvas) {
             }
         };
         canvas.onpointermove = function (aaa) {
+            console.log(3);
             let x = aaa.clientX;
             let y = aaa.clientY;
             if (using) {
@@ -70,6 +71,7 @@ function listenToMouse(canvas) {
             }
         };
         canvas.onpointerup = function() {
+            console.log(2);
             using = false;
         };
 
