@@ -7,7 +7,7 @@ listenToMouse(yyy);
 let eraserEnabled = false;
 let eraser = document.getElementById("eraser");
 let brush = document.getElementById("brush");
-let actions = document.getElementById("actions")
+let actions = document.getElementById("actions");
 eraser.onclick = function () {
     eraserEnabled = true;
     actions.className = "actions x";
