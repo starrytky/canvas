@@ -6,13 +6,17 @@ listenToMouse(yyy);
 
 let eraserEnabled = false;
 let eraser = document.getElementById("eraser");
+let brush = document.getElementById("brush");
+let actions = document.getElementById("actions")
 eraser.onclick = function () {
-    eraserEnabled = !eraserEnabled;
-    if (eraserEnabled){
-        eraser.textContent="画笔";
-    } else{
-        eraser.textContent="橡皮擦";
-    }
+    eraserEnabled = true;
+    actions.className = "actions x";
+    console.log(actions);
+};
+brush.onclick = function(){
+    eraserEnabled = false;
+    actions.className = "actions";
+    console.log(actions);
 };
 
 function autoSetCanvasSize(canvas) {

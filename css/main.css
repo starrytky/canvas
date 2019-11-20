@@ -3,15 +3,33 @@
     display: block;
 }
 
-body{
-}
-
 html{
     border:1px solid black;
 }
-button{
-    border-radius: 2px;
-    position: fixed;
-    left: 0;
-    bottom: 0;
+.actions{
+    position: relative;
+    bottom: 20px;
+    left: 20px;
+}
+.actions.x > #brush,.action,.x >#eraser {
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    box-shadow: none;
+}
+.actions.x > #eraser {
+    left: 100px;
+    box-shadow:0 0 5px 1px rgba(0,0,0,.7);
+}
+.actions > #eraser,.actions > #brush {
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    left: 100px;
+    box-shadow: none;
+}
+.actions > #brush {
+    left: 20px;
+    box-shadow:0 0 5px 1px rgba(0,0,0,.7);
 }
