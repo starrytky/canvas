@@ -38,46 +38,11 @@ function listenToMouse(canvas) {
     let lastPoint = {x: undefined, y: undefined};
 
     //特性检测：查看函数是否存在
-    if (document.body.ontouchstart !== null) {
-        // canvas.onpointerdown = function (aaa) {
-        //     console.log(aaa);
-        //     let x = aaa.clientX;//相对于视口的位置不是相对于canvas的位置
-        //     let y = aaa.clientY;
-        //     using = true;
-        //     if (eraserEnabled) {
-        //         context.clearRect(x, y, 10, 10);
-        //     } else {
-        //         lastPoint = {
-        //             x: x,
-        //             y: y
-        //         };
-        //     }
-        // };
-        // canvas.onpointermove = function (aaa) {
-        //     let x = aaa.clientX;
-        //     let y = aaa.clientY;
-        //     if (using) {
-        //         if (eraserEnabled) {
-        //             context.clearRect(x - 5, y - 5, 10, 10);
-        //         } else {
-        //             let newPoint = {
-        //                 x: x,
-        //                 y: y
-        //             };
-        //             drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
-        //             lastPoint = newPoint;
-        //         }
-        //     }
-        // };
-        // canvas.onpointerup = function() {
-        //     using = false;
-        // };
-
-
-
-        canvas.ontouchstart = function (aaa) {
-            let x = aaa.touches[0].clientX;//相对于视口的位置不是相对于canvas的位置
-            let y = aaa.touches[0].clientY;
+    if (document.body.onpointerdown === undefined) {
+        canvas.onpointerdown = function (aaa) {
+            console.log(aaa);
+            let x = aaa.clientX;//相对于视口的位置不是相对于canvas的位置
+            let y = aaa.clientY;
             using = true;
             if (eraserEnabled) {
                 context.clearRect(x, y, 10, 10);
@@ -88,10 +53,9 @@ function listenToMouse(canvas) {
                 };
             }
         };
-        canvas.ontouchmove = function (aaa) {
-            console.log(1);
-            let x = aaa.touches[0].clientX;
-            let y = aaa.touches[0].clientY;
+        canvas.onpointermove = function (aaa) {
+            let x = aaa.clientX;
+            let y = aaa.clientY;
             if (using) {
                 if (eraserEnabled) {
                     context.clearRect(x - 5, y - 5, 10, 10);
@@ -105,9 +69,45 @@ function listenToMouse(canvas) {
                 }
             }
         };
-        canvas.ontouchend = function() {
+        canvas.onpointerup = function() {
             using = false;
         };
+
+
+
+        // canvas.ontouchstart = function (aaa) {
+        //     let x = aaa.touches[0].clientX;//相对于视口的位置不是相对于canvas的位置
+        //     let y = aaa.touches[0].clientY;
+        //     using = true;
+        //     if (eraserEnabled) {
+        //         context.clearRect(x, y, 10, 10);
+        //     } else {
+        //         lastPoint = {
+        //             x: x,
+        //             y: y
+        //         };
+        //     }
+        // };
+        // canvas.ontouchmove = function (aaa) {
+        //     console.log(1);
+        //     let x = aaa.touches[0].clientX;
+        //     let y = aaa.touches[0].clientY;
+        //     if (using) {
+        //         if (eraserEnabled) {
+        //             context.clearRect(x - 5, y - 5, 10, 10);
+        //         } else {
+        //             let newPoint = {
+        //                 x: x,
+        //                 y: y
+        //             };
+        //             drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+        //             lastPoint = newPoint;
+        //         }
+        //     }
+        // };
+        // canvas.ontouchend = function() {
+        //     using = false;
+        // };
     } else {
         canvas.onmousedown = function (aaa) {
             let x = aaa.clientX;//相对于视口的位置不是相对于canvas的位置
