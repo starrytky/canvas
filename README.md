@@ -92,4 +92,11 @@ let passiveSupported = false;
 
 ### 7.移动端默认事件
 
-一开始觉得e.preventDefault();应该没什么用，但是手机端太多默认事件了，比如下拉刷新，左右划切换历史记录网址。
+一开始觉得e.preventDefault();应该没什么用，但是手机端太多默认事件了，比如下拉刷新，左右划切换历史记录网址。设置了没有用，删掉，其实上面的浏览器报错的代码就解决了这个问题,而且加了之后浏览器会报错，对移动端优化产生影响。
+
+### 8.获取select中选中的option
+
+```javascript
+let os2 = document.getElementById("s1");
+os2.options[os2.options.selectedIndex].value;//直接用，赋值再用可能没效果
+```

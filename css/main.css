@@ -1,35 +1,51 @@
-#xxx{
-    background: gray;
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: #552932;
+    overflow: hidden;
+}
+#xxx {
     display: block;
 }
-*{
+* {
     margin: 0;
     padding: 0;
 }
-.actions{
-    position: relative;
-    bottom: 0;
-    left: 0;
+body{
+    background: #D3B185;
 }
-.actions.x > #brush,.action,.x >#eraser {
-    display: inline-block;
+.tools {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 30px 40px;
+    background-color: #A9815F;
+    border-radius: 8px;
+}
+.tools svg {
+    width: 2.5em;
+    height: 2.5em;
+    margin-right: 3em;
+    transition: all .4s;
+}
+.tools svg.active{
+    fill: #231815;
+    transform: scale(1.4);
+}
+#s1 {
     position: absolute;
-    bottom: 40px;
-    left: 20px;
-    box-shadow: none;
+    top: 38px;
+    left: 207px;
 }
-.actions.x > #eraser {
-    left: 100px;
-    box-shadow:0 0 5px 1px rgba(0,0,0,.7);
-}
-.actions > #eraser,.actions > #brush {
-    display: inline-block;
+#s2 {
     position: absolute;
-    bottom: 40px;
-    left: 100px;
-    box-shadow: none;
+    top: 67px;
+    left: 212px;
 }
-.actions > #brush {
-    left: 20px;
-    box-shadow:0 0 5px 1px rgba(0,0,0,.7);
-}
+
+
+
+
+
+

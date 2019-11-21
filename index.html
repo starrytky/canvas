@@ -4,14 +4,36 @@
     <meta charset="UTF-8">
     <title>我的画板</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="icon" type="image/png" sizes="32*32" href="./images/Sketchpad-icon.png">
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0" />
 </head>
 <body>
-<canvas id="xxx"></canvas>
-<div id="actions" class="actions">
-    <button id="eraser">橡皮擦</button>
-    <button id="brush">画笔</button>
+<div class="tools">
+    <svg class="icon active" aria-hidden="true" id="brush">
+        <use xlink:href="#icon-brush"></use>
+    </svg>
+    <svg class="icon" aria-hidden="true" id="eraser">
+        <use xlink:href="#icon-eraser"></use>
+    </svg>
 </div>
+<select id="s1">
+    <option value="red">红色</option>
+    <option value="blue">蓝色</option>
+    <option value="green">绿色</option>
+    <option value="pink">粉色</option>
+    <option value="black">黑色</option>
+    <option value="gray">灰色</option>
+</select>
+<select id="s2">
+    <option value="10">10</option>
+    <option value="12">12</option>
+    <option value="14">14</option>
+    <option value="16">16</option>
+    <option value="18">18</option>
+    <option value="20">20</option>
+</select>
+<canvas id="xxx"></canvas>
+<script src="//at.alicdn.com/t/font_1522337_e3260zkvd4.js"></script>
 <script src="./js/main.js"></script>
 </body>
 </html>
