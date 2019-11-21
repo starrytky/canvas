@@ -63,4 +63,29 @@ console.log(document.body.ontouchstart !== undefined);
 ```
 暂时没用，一下午时间，心态炸裂，在chrome和firefox都没有找到ontouchstart。如果手机适配就暂时用着，到之后再改改看。
 
-用onpointerdown浏览器里手机和pc的都可以用，在手机里会出现短短一笔的问题，之后再改。
+用onpointerdown浏览器里手机和pc的都可以用，在手机里会出现短短一笔的问题，之后再改。一炸再炸哈哈~
+
+>比较合适的解决方案
+
+通过TouchEvent和mouseEvent结合，前者只可以在可触屏的地方使用，后者只有鼠标才可以使用。
+
+### 6.chrome浏览器报错
+```javascript
+//Added non-passive event listener to a scroll-blocking 'touchmove' event. Consider marking event handler as 'passive' to make the page more responsive. See
+```
+解决办法：
+```javascript
+let passiveSupported = false;
+    try {
+        let options = Object.defineProperty({}, "passive", {
+            get: function() {
+                passiveSupported = true;
+            }
+        });
+        window.addEventListener("test", null, options);
+    } catch(err) {}
+    function fn(){
+        console.log(fn);
+    }
+    xxx.addEventListener("touchstart", fn, passiveSupported ? { passive: true } : false)
+```
