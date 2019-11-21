@@ -1,7 +1,7 @@
 let yyy = document.getElementById("xxx");
 let context = yyy.getContext("2d");
 let os1 = document.getElementById("s1");
-let os2 = document.getElementById("s2")
+let os2 = document.getElementById("s2");
 
 autoSetCanvasSize(yyy);
 listenToEvent(yyy);
@@ -9,6 +9,8 @@ listenToEvent(yyy);
 let eraserEnabled = false;
 let eraser = document.getElementById("eraser");
 let brush = document.getElementById("brush");
+let cycle = document.getElementById("cycle");
+let download = document.getElementById("xiazai");
 eraser.onclick = function () {
     eraserEnabled = true;
     this.classList.add("active");
@@ -18,6 +20,15 @@ brush.onclick = function () {
     eraserEnabled = false;
     this.classList.add("active");
     eraser.classList.remove("active")
+};
+cycle.onclick = function () {
+    context.clearRect(0, 0, yyy.width, yyy.height);
+};
+download.onclick = function(){
+    let link = document.createElement("a");
+    link.download = "filename.png";
+    link.href = yyy.toDataURL();
+    link.click();
 };
 
 function autoSetCanvasSize(canvas) {
