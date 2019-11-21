@@ -89,3 +89,7 @@ let passiveSupported = false;
     }
     xxx.addEventListener("touchstart", fn, passiveSupported ? { passive: true } : false)
 ```
+
+### 7.移动端默认事件
+
+一开始觉得e.preventDefault();应该没什么用，但是手机端太多默认事件了，比如下拉刷新，左右划切换历史记录网址。
