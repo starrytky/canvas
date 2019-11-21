@@ -43,7 +43,6 @@ function listenToEvent(canvas) {
     try {
         let options = Object.defineProperty({}, "passive", {
             get: function() {
-                console.log(1);
                 passiveSupported = true;
             }
         });
