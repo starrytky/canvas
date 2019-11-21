@@ -2,7 +2,7 @@ let yyy = document.getElementById("xxx");
 let context = yyy.getContext("2d");
 
 autoSetCanvasSize(yyy);
-listenToMouse(yyy);
+listenToEvent(yyy);
 
 let eraserEnabled = false;
 let eraser = document.getElementById("eraser");
@@ -32,119 +32,90 @@ function autoSetCanvasSize(canvas) {
     }
 }
 
-function listenToMouse(canvas) {
+function listenToEvent(canvas) {
     let using = false;
     let lastPoint = {x: undefined, y: undefined};
 
-    //特性检测：查看函数是否存在
-    if (document.body.onpointerdown === null) {
-        canvas.onpointerdown = function (aaa) {
-            console.log(1);
-            console.log(aaa);
-            let x = aaa.clientX;//相对于视口的位置不是相对于canvas的位置
-            let y = aaa.clientY;
-            using = true;
+    let passiveSupported = false;
+    try {
+        let options = Object.defineProperty({}, "passive", {
+            get: function() {
+                passiveSupported = true;
+            }
+        });
+        window.addEventListener("test", null, options);
+    } catch(err) {}
+
+    canvas.addEventListener("touchstart", e => {
+        // e.preventDefault();
+        let x = e.touches[0].clientX;//相对于视口的位置不是相对于canvas的位置
+        let y = e.touches[0].clientY;
+        using = true;
+        if (eraserEnabled) {
+            context.clearRect(x, y, 10, 10);
+        } else {
+            lastPoint = {
+                x: x,
+                y: y
+            };
+        }
+        return e;
+    }, passiveSupported ? { passive: true } : false);
+    canvas.addEventListener("touchmove", e => {
+        // e.preventDefault();
+        let x = e.touches[0].clientX;
+        let y = e.touches[0].clientY;
+        if (using) {
             if (eraserEnabled) {
-                context.clearRect(x, y, 10, 10);
+                context.clearRect(x - 5, y - 5, 10, 10);
             } else {
-                lastPoint = {
+                let newPoint = {
                     x: x,
                     y: y
                 };
+                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+                lastPoint = newPoint;
             }
-        };
-        canvas.onpointermove = function (aaa) {
-            console.log(3);
-            let x = aaa.clientX;
-            let y = aaa.clientY;
-            if (using) {
-                if (eraserEnabled) {
-                    context.clearRect(x - 5, y - 5, 10, 10);
-                } else {
-                    let newPoint = {
-                        x: x,
-                        y: y
-                    };
-                    drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
-                    lastPoint = newPoint;
-                }
-            }
-        };
-        canvas.onpointerup = function() {
-            console.log(2);
-            using = false;
-        };
+        }
+    }, passiveSupported ? { passive: true } : false);
+    canvas.addEventListener("touchend", () => {
+        using = false;
+    }, passiveSupported ? { passive: true } : false);
 
 
-
-        // canvas.ontouchstart = function (aaa) {
-        //     let x = aaa.touches[0].clientX;//相对于视口的位置不是相对于canvas的位置
-        //     let y = aaa.touches[0].clientY;
-        //     using = true;
-        //     if (eraserEnabled) {
-        //         context.clearRect(x, y, 10, 10);
-        //     } else {
-        //         lastPoint = {
-        //             x: x,
-        //             y: y
-        //         };
-        //     }
-        // };
-        // canvas.ontouchmove = function (aaa) {
-        //     console.log(1);
-        //     let x = aaa.touches[0].clientX;
-        //     let y = aaa.touches[0].clientY;
-        //     if (using) {
-        //         if (eraserEnabled) {
-        //             context.clearRect(x - 5, y - 5, 10, 10);
-        //         } else {
-        //             let newPoint = {
-        //                 x: x,
-        //                 y: y
-        //             };
-        //             drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
-        //             lastPoint = newPoint;
-        //         }
-        //     }
-        // };
-        // canvas.ontouchend = function() {
-        //     using = false;
-        // };
-    } else {
-        canvas.onmousedown = function (aaa) {
-            let x = aaa.clientX;//相对于视口的位置不是相对于canvas的位置
-            let y = aaa.clientY;
-            using = true;
+    canvas.addEventListener("mousedown", e => {
+        let x = e.clientX;//相对于视口的位置不是相对于canvas的位置
+        let y = e.clientY;
+        using = true;
+        if (eraserEnabled) {
+            context.clearRect(x, y, 10, 10);
+        } else {
+            lastPoint = {
+                x: x,
+                y: y
+            };
+        }
+        return e;
+    }, passiveSupported ? { passive: true } : false);
+    canvas.addEventListener("mousemove", e => {
+        let x = e.clientX;
+        let y = e.clientY;
+        if (using) {
             if (eraserEnabled) {
-                context.clearRect(x, y, 10, 10);
+                context.clearRect(x - 5, y - 5, 10, 10);
             } else {
-                lastPoint = {
+                let newPoint = {
                     x: x,
                     y: y
                 };
+                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
+                lastPoint = newPoint;
             }
-        };
-        canvas.onmousemove = function (aaa) {
-            let x = aaa.clientX;
-            let y = aaa.clientY;
-            if (using) {
-                if (eraserEnabled) {
-                    context.clearRect(x - 5, y - 5, 10, 10);
-                } else {
-                    let newPoint = {
-                        x: x,
-                        y: y
-                    };
-                    drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y);
-                    lastPoint = newPoint;
-                }
-            }
-        };
-        canvas.onmouseup = function () {
-            using = false;
-        };
-    }
-
+        }
+    }, passiveSupported ? { passive: true } : false);
+    canvas.addEventListener("mouseup", () => {
+        using = false;
+    }, passiveSupported ? { passive: true } : false);
     function drawLine(x1, y1, x2, y2) {
         context.beginPath();
         context.strokeStyle = "black";
@@ -154,6 +125,4 @@ function listenToMouse(canvas) {
         context.stroke();
         context.closePath();
     }
-
-
 }
