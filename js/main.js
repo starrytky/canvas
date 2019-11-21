@@ -47,7 +47,7 @@ function listenToEvent(canvas) {
     } catch(err) {}
 
     canvas.addEventListener("touchstart", e => {
-        // e.preventDefault();
+        e.preventDefault();
         let x = e.touches[0].clientX;//相对于视口的位置不是相对于canvas的位置
         let y = e.touches[0].clientY;
         using = true;
@@ -62,7 +62,7 @@ function listenToEvent(canvas) {
         return e;
     }, passiveSupported ? { passive: true } : false);
     canvas.addEventListener("touchmove", e => {
-        // e.preventDefault();
+        e.preventDefault();
         let x = e.touches[0].clientX;
         let y = e.touches[0].clientY;
         if (using) {
@@ -78,7 +78,8 @@ function listenToEvent(canvas) {
             }
         }
     }, passiveSupported ? { passive: true } : false);
-    canvas.addEventListener("touchend", () => {
+    canvas.addEventListener("touchend", e => {
+        e.preventDefault();
         using = false;
     }, passiveSupported ? { passive: true } : false);
 
