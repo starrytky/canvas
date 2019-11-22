@@ -24,10 +24,18 @@ brush.onclick = function () {
 cycle.onclick = function () {
     context.clearRect(0, 0, yyy.width, yyy.height);
 };
-download.onclick = function(){
+download.onclick = function () {
     let link = document.createElement("a");
     link.download = "filename.png";
+    // 加背景
+    context.globalCompositeOperation = 'destination-over';
+    context.fillStyle = "#A9815F";
+    context.fillRect(0, 0, yyy.width, yyy.height);
     link.href = yyy.toDataURL();
+    // 还原
+    // context.clearRect(0, 0, yyy.width, yyy.height);
+    // context.putImageData(context.getImageData(0, 0, yyy.width, yyy.height), 0, 0);
+    // context.globalCompositeOperation = 'destination-over';
     link.click();
 };
 
@@ -53,12 +61,13 @@ function listenToEvent(canvas) {
     let passiveSupported = false;
     try {
         let options = Object.defineProperty({}, "passive", {
-            get: function() {
+            get: function () {
                 passiveSupported = true;
             }
         });
         window.addEventListener("test", null, options);
-    } catch(err) {}
+    } catch (err) {
+    }
 
     canvas.addEventListener("touchstart", function (e) {
         // e = e ||event;
@@ -67,8 +76,8 @@ function listenToEvent(canvas) {
         let y = e.touches[0].clientY;
         using = true;
         if (eraserEnabled) {
-            let wh=os2.options[os2.options.selectedIndex].value;
-            context.clearRect(x, y, wh-0, wh-0);
+            let wh = os2.options[os2.options.selectedIndex].value;
+            context.clearRect(x, y, wh - 0, wh - 0);
         } else {
             lastPoint = {
                 x: x,
@@ -76,16 +85,16 @@ function listenToEvent(canvas) {
             };
         }
         return e;
-    }, passiveSupported ? { passive: true } : false);
-    canvas.addEventListener("touchmove",function (e) {
+    }, passiveSupported ? {passive: true} : false);
+    canvas.addEventListener("touchmove", function (e) {
         // e = e ||event;
         // e.preventDefault();
         let x = e.touches[0].clientX;
         let y = e.touches[0].clientY;
         if (using) {
             if (eraserEnabled) {
-                let wh=os2.options[os2.options.selectedIndex].value;
-                context.clearRect(x, y, wh-0, wh-0);
+                let wh = os2.options[os2.options.selectedIndex].value;
+                context.clearRect(x, y, wh - 0, wh - 0);
             } else {
                 let newPoint = {
                     x: x,
@@ -95,21 +104,21 @@ function listenToEvent(canvas) {
                 lastPoint = newPoint;
             }
         }
-    }, passiveSupported ? { passive: true } : false);
-    canvas.addEventListener("touchend",function () {
+    }, passiveSupported ? {passive: true} : false);
+    canvas.addEventListener("touchend", function () {
         // e = e ||event;
         // e.preventDefault();
         using = false;
-    }, passiveSupported ? { passive: true } : false);
+    }, passiveSupported ? {passive: true} : false);
 
 
-    canvas.addEventListener("mousedown",function (e) {
+    canvas.addEventListener("mousedown", function (e) {
         let x = e.clientX;//相对于视口的位置不是相对于canvas的位置
         let y = e.clientY;
         using = true;
         if (eraserEnabled) {
-            let wh=os2.options[os2.options.selectedIndex].value;
-            context.clearRect(x, y, wh-0, wh-0);
+            let wh = os2.options[os2.options.selectedIndex].value;
+            context.clearRect(x, y, wh - 0, wh - 0);
         } else {
             lastPoint = {
                 x: x,
@@ -117,14 +126,14 @@ function listenToEvent(canvas) {
             };
         }
         return e;
-    }, passiveSupported ? { passive: true } : false);
+    }, passiveSupported ? {passive: true} : false);
     canvas.addEventListener("mousemove", e => {
         let x = e.clientX;
         let y = e.clientY;
         if (using) {
             if (eraserEnabled) {
-                let wh=os2.options[os2.options.selectedIndex].value;
-                context.clearRect(x, y, wh-0, wh-0);
+                let wh = os2.options[os2.options.selectedIndex].value;
+                context.clearRect(x, y, wh - 0, wh - 0);
             } else {
                 let newPoint = {
                     x: x,
@@ -134,10 +143,11 @@ function listenToEvent(canvas) {
                 lastPoint = newPoint;
             }
         }
-    }, passiveSupported ? { passive: true } : false);
+    }, passiveSupported ? {passive: true} : false);
     canvas.addEventListener("mouseup", () => {
         using = false;
-    }, passiveSupported ? { passive: true } : false);
+    }, passiveSupported ? {passive: true} : false);
+
     function drawLine(x1, y1, x2, y2) {
         context.beginPath();
         context.strokeStyle = os1.options[os1.options.selectedIndex].value;

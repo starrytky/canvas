@@ -100,3 +100,21 @@ let passiveSupported = false;
 let os2 = document.getElementById("s1");
 os2.options[os2.options.selectedIndex].value;//直接用，赋值再用可能没效果
 ```
+
+### 9.加背景
+```javascript
+download.onclick = function () {
+    let link = document.createElement("a");
+    link.download = "filename.png";
+    // 加背景
+    context.globalCompositeOperation = 'destination-over';
+    context.fillStyle = "#A9815F";
+    context.fillRect(0, 0, yyy.width, yyy.height);
+    link.href = yyy.toDataURL();
+    // 还原
+    // context.clearRect(0, 0, yyy.width, yyy.height);
+    // context.putImageData(context.getImageData(0, 0, yyy.width, yyy.height), 0, 0);
+    // context.globalCompositeOperation = 'destination-over';
+    link.click();
+};
+```
